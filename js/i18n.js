@@ -216,6 +216,7 @@
     'sup.hint': ['填入 Buy Me a Coffee、Ko-fi 或 PayPal.me 連結後，按鈕就會出現，點了會在新分頁打開你的贊助頁。', 'Paste your Buy Me a Coffee, Ko-fi or PayPal.me link and the button appears; tapping it opens your page in a new tab.'],
     'sup.saved': ['贊助連結已更新', 'Support link updated'],
     'sup.needUrl': ['請先填入贊助連結', 'Add your support link first'],
+    'sup.enjoy': ['這個 App 對你有幫助嗎？', 'Is this app helpful to you?'],
 
     /* 類別圖示 */
     'ico.title': ['類別圖示', 'Category icon'],

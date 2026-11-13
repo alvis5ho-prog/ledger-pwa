@@ -18,6 +18,14 @@
   const els = {};
   const T = I18N.t;
 
+  /* 內建贊助連結（使用者可在設定覆寫） */
+  const SUPPORT_URL = 'https://buymeacoffee.com/charmcharm123';
+
+  function supportUrl() {
+    const u = (DB.getSettings().supportUrl || '').trim();
+    return /^https?:\/\//i.test(u) ? u : SUPPORT_URL;
+  }
+
   /* ──────────────────────────────────────────────
    * 聚合
    * ────────────────────────────────────────────── */
@@ -710,7 +718,19 @@
       root.appendChild(sec3);
     }
 
-    root.appendChild(U.h('p', { class: 'footer-note', text: T('overview.footer') }));
+    const foot = U.h('div', { class: 'footer-note' });
+    foot.appendChild(U.h('p', { style: { margin: '0 0 12px' }, text: T('sup.enjoy') }));
+    foot.appendChild(U.h('button', {
+      class: 'btn btn--ghost btn--sm',
+      type: 'button',
+      text: '☕ ' + T('sup.button'),
+      onclick: function () { window.open(supportUrl(), '_blank', 'noopener'); }
+    }));
+    foot.appendChild(U.h('p', {
+      style: { margin: '16px 0 0' },
+      text: T('overview.footer')
+    }));
+    root.appendChild(foot);
   }
 
   /* ──────────────────────────────────────────────
@@ -1410,9 +1430,7 @@
       type: 'button',
       text: '☕ ' + T('sup.button'),
       onclick: function () {
-        const url = (DB.getSettings().supportUrl || '').trim();
-        if (!/^https?:\/\//i.test(url)) return toast(T('sup.needUrl'));
-        window.open(url, '_blank', 'noopener');
+        window.open(supportUrl(), '_blank', 'noopener');
       }
     }));
     aboutForm.appendChild(U.h('p', { class: 'hint', text: T('sup.hint') }));
