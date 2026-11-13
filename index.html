@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#0F1512">
+  <meta name="description" content="個人記帳本 — 資料只存在你手機裡，月結預算偏差一目了然">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="帳本">
+  <title>帳本 — 個人記帳</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <button class="topbar__btn" id="topbar-left" type="button" hidden></button>
+      <div class="topbar__center" id="topbar-center"></div>
+      <button class="topbar__btn topbar__btn--icon" id="topbar-right" type="button" hidden></button>
+    </header>
+
+    <main class="views" id="views">
+      <section class="view is-active" id="view-overview" data-view="overview" aria-label="總覽"></section>
+      <section class="view" id="view-ledger" data-view="ledger" aria-label="紀錄" hidden></section>
+      <section class="view" id="view-compare" data-view="compare" aria-label="比較" hidden></section>
+      <section class="view" id="view-settings" data-view="settings" aria-label="設定" hidden></section>
+    </main>
+
+    <button class="fab" id="btn-add" type="button" aria-label="記一筆">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5.5v13M5.5 12h13" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"/></svg>
+    </button>
+
+    <nav class="tabbar" id="tabbar" aria-label="主要導覽">
+      <button class="tab is-active" type="button" data-tab="overview">
+        <svg class="tab__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7.2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 4.8v7.2l4.6 4.6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        <span class="tab__label">總覽</span>
+      </button>
+      <button class="tab" type="button" data-tab="ledger">
+        <svg class="tab__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h12M6 10h12M6 15h8M6 20h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="18.5" cy="18.5" r="2.2" fill="currentColor"/></svg>
+        <span class="tab__label">紀錄</span>
+      </button>
+      <button class="tab" type="button" data-tab="compare">
+        <svg class="tab__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19V12M10.3 19V6M15.7 19v-9M21 19V9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <span class="tab__label">比較</span>
+      </button>
+      <button class="tab" type="button" data-tab="settings">
+        <svg class="tab__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 3.8l1.2 2.1 2.4-.3.9 2.2 2.2.9-.3 2.4 2.1 1.2-2.1 1.2.3 2.4-2.2.9-.9 2.2-2.4-.3L12 20.2l-1.2-2.1-2.4.3-.9-2.2-2.2-.9.3-2.4L3.5 12l2.1-1.2-.3-2.4 2.2-.9.9-2.2 2.4.3Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <span class="tab__label">設定</span>
+      </button>
+    </nav>
+  </div>
+
+  <div class="overlay" id="overlay" hidden>
+    <div class="overlay__scrim" id="overlay-scrim"></div>
+    <div class="sheet" id="sheet" role="dialog" aria-modal="true"></div>
+  </div>
+
+  <div class="toast" id="toast" role="status" hidden></div>
+
+  <div class="lock" id="lock" hidden></div>
+
+  <script src="js/util.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/insights.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
