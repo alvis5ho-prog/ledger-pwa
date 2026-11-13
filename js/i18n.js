@@ -227,7 +227,7 @@
     'inst.deskTitle': ['電腦（Chrome / Edge）', 'Desktop (Chrome / Edge)'],
     'inst.desk1': ['點網址列右側的「安裝」圖示（⏏ 或 ＋）', 'Click the install icon (⏏ or ＋) at the right of the address bar'],
     'inst.desk2': ['或用瀏覽器選單 →「安裝帳本…」', 'Or browser menu → “Install Ledger…”'],
-    'inst.note': ['安裝後像 App 一樣全螢幕開啟，離線也能用。', 'After installing, it opens full-screen like an app and works offline.']
+    'inst.note': ['安裝後像 App 一樣全螢幕開啟，離線也能用。', 'After installing, it opens full-screen like an app and works offline.'],
 
     /* 類別圖示 */
     'ico.title': ['類別圖示', 'Category icon'],
