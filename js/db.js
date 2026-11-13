@@ -4,7 +4,7 @@
 
   const KEY = 'ledger.v2';
 
-  /* 依使用者試算表的真實開支分類（24 項）— icon 為 Twemoji 檔名 */
+  /* 依使用者試算表的真實開支分類（24 項＋10 項生活類）— icon 為圖示檔名 */
   const DEFAULT_CATEGORIES = [
     { id: 'meal',       name: '餐費',     nameEn: 'Meals',         emoji: '☕️', icon: 'meal',      color: '#E08A5B', budget: 0, archived: false },
     { id: 'drink',      name: '飲料',     nameEn: 'Drinks',        emoji: '🧋', icon: 'drink',     color: '#E7C46B', budget: 0, archived: false },
@@ -51,7 +51,6 @@
     pinEnabled: false,
     pinHash: '',
     pinSalt: '',
-    supportUrl: '',
     createdAt: Date.now()
   };
 

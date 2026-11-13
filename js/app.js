@@ -18,13 +18,8 @@
   const els = {};
   const T = I18N.t;
 
-  /* 內建贊助連結（使用者可在設定覆寫） */
+  /* 內建贊助連結 */
   const SUPPORT_URL = 'https://buymeacoffee.com/charmcharm123';
-
-  function supportUrl() {
-    const u = (DB.getSettings().supportUrl || '').trim();
-    return /^https?:\/\//i.test(u) ? u : SUPPORT_URL;
-  }
 
   /* ──────────────────────────────────────────────
    * 聚合
@@ -724,7 +719,7 @@
       class: 'btn btn--ghost btn--sm',
       type: 'button',
       text: '☕ ' + T('sup.button'),
-      onclick: function () { window.open(supportUrl(), '_blank', 'noopener'); }
+      onclick: function () { window.open(SUPPORT_URL, '_blank', 'noopener'); }
     }));
     foot.appendChild(U.h('p', {
       style: { margin: '16px 0 0' },
@@ -1403,38 +1398,22 @@
 
     /* 關於 + 贊助 */
     const about = U.h('div', { class: 'set-card' });
-    const aboutForm = U.h('div', { class: 'set-form' }, [
+    about.appendChild(U.h('div', { class: 'set-form' }, [
       U.h('div', { class: 'field__label', text: T('title.about') }),
       U.h('p', { class: 'hint', text: T('set.aboutHint') }),
       U.h('button', {
         class: 'btn btn--ghost btn--sm btn--block', type: 'button',
         text: T('set.install'), onclick: installPWA
       }),
-      U.h('div', { class: 'field__label', style: { marginTop: '6px' }, text: T('sup.urlLabel') })
-    ]);
-    const supInput = U.h('input', {
-      class: 'input',
-      type: 'url',
-      inputmode: 'url',
-      placeholder: T('sup.urlPh'),
-      value: s.supportUrl || ''
-    });
-    supInput.addEventListener('change', function () {
-      DB.updateSettings({ supportUrl: supInput.value.trim() });
-      toast(T('sup.saved'));
-      render();
-    });
-    aboutForm.appendChild(supInput);
-    aboutForm.appendChild(U.h('button', {
-      class: 'btn btn--primary btn--block',
-      type: 'button',
-      text: '☕ ' + T('sup.button'),
-      onclick: function () {
-        window.open(supportUrl(), '_blank', 'noopener');
-      }
-    }));
-    aboutForm.appendChild(U.h('p', { class: 'hint', text: T('sup.hint') }));
-    about.appendChild(aboutForm);
+      U.h('button', {
+        class: 'btn btn--primary btn--block',
+        type: 'button',
+        style: { marginTop: '6px' },
+        text: '☕ ' + T('sup.button'),
+        onclick: function () { window.open(SUPPORT_URL, '_blank', 'noopener'); }
+      }),
+      U.h('p', { class: 'hint', text: T('sup.enjoy') })
+    ]));
     list.appendChild(about);
 
     root.appendChild(list);

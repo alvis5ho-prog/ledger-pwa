@@ -112,7 +112,7 @@
     'set.import': ['匯入備份', 'Import backup'],
     'set.sample': ['載入示範資料', 'Load sample data'],
     'set.erase': ['清除所有資料', 'Erase all data'],
-    'set.aboutHint': ['PWA 記帳本 · 離線可用 · 可安裝到主畫面。分類依家庭開支表設計：餐費、雜費、住房、交通、學費、差餉、工人薪金、石油汽等 24 項。', 'A PWA expense ledger · works offline · installable to your home screen. 24 household categories: meals, groceries, housing, transport, tuition, rates, helper salary, LPG, and more.'],
+    'set.aboutHint': ['PWA 記帳本 · 離線可用 · 可安裝到主畫面。分類依家庭開支表設計：餐費、雜費、住房、交通、學費、差餉、工人薪金、石油汽、洗衣、寵物等 34 項。', 'A PWA expense ledger · works offline · installable to your home screen. 34 household categories: meals, groceries, housing, transport, tuition, rates, helper salary, LPG, laundry, pets, and more.'],
     'set.install': ['安裝到主畫面', 'Install to home screen'],
     'set.footer': ['版本 2.1 · 不收集任何個人資料', 'Version 2.1 · No personal data collected'],
 
@@ -210,12 +210,7 @@
     'ins.dash': [' — ', ' — '],
 
     /* 贊助 */
-    'sup.urlLabel': ['贊助連結', 'Support link'],
-    'sup.urlPh': ['https://www.buymeacoffee.com/你的名字', 'https://www.buymeacoffee.com/yourname'],
     'sup.button': ['請作者喝杯咖啡', 'Buy me a coffee'],
-    'sup.hint': ['填入 Buy Me a Coffee、Ko-fi 或 PayPal.me 連結後，按鈕就會出現，點了會在新分頁打開你的贊助頁。', 'Paste your Buy Me a Coffee, Ko-fi or PayPal.me link and the button appears; tapping it opens your page in a new tab.'],
-    'sup.saved': ['贊助連結已更新', 'Support link updated'],
-    'sup.needUrl': ['請先填入贊助連結', 'Add your support link first'],
     'sup.enjoy': ['這個 App 對你有幫助嗎？', 'Is this app helpful to you?'],
 
     /* 類別圖示 */
