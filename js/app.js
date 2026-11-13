@@ -1464,12 +1464,71 @@
   });
 
   function installPWA() {
+    const sheet = els.sheet;
+    U.clear(sheet);
+    sheet.appendChild(U.h('div', { class: 'sheet__grip' }));
+    sheet.appendChild(U.h('div', { class: 'sheet__head' }, [
+      U.h('h2', { class: 'sheet__title', text: T('inst.title') }),
+      U.h('button', {
+        class: 'icon-btn', type: 'button',
+        html: '<svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7 7 17" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>',
+        onclick: closeSheet
+      })
+    ]));
+
+    // 支援一鍵安裝的瀏覽器（Chrome / Edge 等）
     if (deferredPrompt) {
-      deferredPrompt.prompt();
-      deferredPrompt.userChoice.then(function () { deferredPrompt = null; });
-    } else {
-      toast(T('msg.installHint'));
+      sheet.appendChild(U.h('button', {
+        class: 'btn btn--primary btn--block',
+        type: 'button',
+        text: '⚡ ' + T('inst.auto'),
+        onclick: function () {
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.then(function () { deferredPrompt = null; });
+          closeSheet();
+        }
+      }));
+      sheet.appendChild(U.h('p', { class: 'hint', style: { textAlign: 'center' }, text: T('inst.note') }));
     }
+
+    const ua = navigator.userAgent || '';
+    const isIOS = /iPhone|iPad|iPod/i.test(ua);
+    const isAnd = /Android/i.test(ua);
+    const mine = isIOS ? 'ios' : isAnd ? 'and' : 'desk';
+
+    function stepGroup(titleKey, stepKeys, highlight) {
+      const box = U.h('div', { class: 'inst-group' + (highlight ? ' is-hi' : '') });
+      const head = U.h('div', { class: 'inst-group__title' });
+      if (highlight) head.appendChild(U.h('span', { class: 'inst-badge', text: T('inst.yourDevice') }));
+      head.appendChild(U.h('span', { text: T(titleKey) }));
+      box.appendChild(head);
+      const ol = U.h('ol', { class: 'inst-steps' });
+      stepKeys.forEach(function (k) {
+        ol.appendChild(U.h('li', { text: T(k) }));
+      });
+      box.appendChild(ol);
+      return box;
+    }
+
+    const groups = [
+      { id: 'ios', title: 'inst.iosTitle', steps: ['inst.ios1', 'inst.ios2', 'inst.ios3'] },
+      { id: 'and', title: 'inst.andTitle', steps: ['inst.and1', 'inst.and2', 'inst.and3'] },
+      { id: 'desk', title: 'inst.deskTitle', steps: ['inst.desk1', 'inst.desk2'] }
+    ];
+    // 目前裝置排最前
+    groups.sort(function (a, b) {
+      return (a.id === mine ? -1 : 0) - (b.id === mine ? -1 : 0);
+    });
+
+    const wrap = U.h('div', { class: 'inst-wrap' });
+    groups.forEach(function (g) {
+      wrap.appendChild(stepGroup(g.title, g.steps, g.id === mine));
+    });
+    sheet.appendChild(wrap);
+    sheet.appendChild(U.h('p', { class: 'hint', text: T('inst.note') }));
+
+    els.overlay.hidden = false;
+    document.body.style.overflow = 'hidden';
   }
 
   /* ──────────────────────────────────────────────

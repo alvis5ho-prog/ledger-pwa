@@ -154,7 +154,6 @@
     'msg.backupDownloaded': ['備份已下載', 'Backup downloaded'],
     'msg.imported': ['匯入完成', 'Import complete'],
     'msg.importFailed': ['匯入失敗：{e}', 'Import failed: {e}'],
-    'msg.installHint': ['請用手機瀏覽器選單的「加入主畫面」', 'Use your browser menu → “Add to Home Screen”'],
     'msg.langSet': ['介面已切換', 'Language updated'],
 
     'ask.sample': ['將以示範資料覆蓋現有紀錄，確定嗎？', 'This replaces your current records with sample data. Continue?'],
@@ -212,6 +211,23 @@
     /* 贊助 */
     'sup.button': ['請作者喝杯咖啡', 'Buy me a coffee'],
     'sup.enjoy': ['這個 App 對你有幫助嗎？', 'Is this app helpful to you?'],
+
+    /* 安裝指引 */
+    'inst.title': ['安裝到主畫面', 'Install to Home Screen'],
+    'inst.auto': ['一鍵安裝', 'Install now'],
+    'inst.yourDevice': ['你目前的裝置', 'Your device'],
+    'inst.iosTitle': ['iPhone / iPad（Safari）', 'iPhone / iPad (Safari)'],
+    'inst.ios1': ['點工具列的「分享」按鈕（方框向上箭頭 ↗）', 'Tap the Share button (square with up arrow ↗)'],
+    'inst.ios2': ['選單往下滑，選「加入主畫面」', 'Scroll down the share menu and tap “Add to Home Screen”'],
+    'inst.ios3': ['按右上角「加入」完成', 'Tap “Add” at top right to finish'],
+    'inst.andTitle': ['Android（Chrome）', 'Android (Chrome)'],
+    'inst.and1': ['點右上角選單「⋮」', 'Tap the ⋮ menu at top right'],
+    'inst.and2': ['選「加到主畫面」或「安裝應用程式」', 'Choose “Add to Home screen” or “Install app”'],
+    'inst.and3': ['按「安裝」確認', 'Tap “Install” to confirm'],
+    'inst.deskTitle': ['電腦（Chrome / Edge）', 'Desktop (Chrome / Edge)'],
+    'inst.desk1': ['點網址列右側的「安裝」圖示（⏏ 或 ＋）', 'Click the install icon (⏏ or ＋) at the right of the address bar'],
+    'inst.desk2': ['或用瀏覽器選單 →「安裝帳本…」', 'Or browser menu → “Install Ledger…”'],
+    'inst.note': ['安裝後像 App 一樣全螢幕開啟，離線也能用。', 'After installing, it opens full-screen like an app and works offline.']
 
     /* 類別圖示 */
     'ico.title': ['類別圖示', 'Category icon'],

@@ -1127,6 +1127,58 @@ textarea.input {
   background: var(--mint);
 }
 
+/* ─── Install guide ──────────────────────────────── */
+
+.inst-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 16px 0 4px;
+}
+.inst-group {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  background: var(--surface-2);
+}
+.inst-group.is-hi {
+  border-color: rgba(95, 211, 166, 0.45);
+  background: var(--mint-dim);
+}
+.inst-group__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.inst-badge {
+  font-size: 10.5px;
+  font-weight: 750;
+  letter-spacing: .08em;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--mint);
+  color: var(--mint-ink);
+}
+.inst-steps {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.inst-steps li {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+.inst-steps li::marker {
+  color: var(--mint);
+  font-weight: 700;
+}
+
 /* ─── PIN / Lock ────────────────────────────────── */
 
 .pin-stage {
