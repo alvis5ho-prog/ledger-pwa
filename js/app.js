@@ -85,6 +85,9 @@
     }).filter(function (r) { return r.actual > 0 || r.budget > 0; });
 
     const budgetSum = stmt.reduce(function (a, r) { return a + r.budget; }, 0);
+    // 總預算：設定的「每月總預算」優先；未設時退回各類預算總和
+    const settingsBudget = Number(DB.getSettings().monthlyBudget) || 0;
+    const totalBudget = settingsBudget > 0 ? settingsBudget : budgetSum;
 
     return {
       key: key, entries: entries, total: total, count: entries.length,
@@ -92,7 +95,9 @@
       days: days, daysElapsed: daysElapsed, isCurrent: isCurrent,
       categories: groupByCategory(entries),
       stmt: stmt,
-      budgetSum: budgetSum
+      budgetSum: budgetSum,
+      totalBudget: totalBudget,
+      hasCatBudgets: stmt.some(function (r) { return r.budget > 0; })
     };
   }
 
@@ -521,7 +526,7 @@
     const monthKey = U.monthKey(new Date());
     const st = monthStats(monthKey);
     const unit = moneyUnit();
-    const budget = st.budgetSum;
+    const budget = st.totalBudget;
     const spentRatio = budget > 0 ? st.total / budget : 0;
 
     const hero = U.h('div', { class: 'card hero' });
@@ -614,7 +619,7 @@
       U.h('p', { class: 'section__title', text: T('overview.varianceBoard') }),
       U.h('span', {
         class: 'section__meta',
-        text: budget > 0 ? T('overview.mostVsBudget') : T('overview.mostVsLastMonth')
+        text: st.hasCatBudgets ? T('overview.mostVsBudget') : T('overview.mostVsLastMonth')
       })
     ]));
 
@@ -623,7 +628,7 @@
       root.appendChild(sec1);
     } else {
       const rows = [];
-      if (budget > 0) {
+      if (st.hasCatBudgets) {
         st.stmt.forEach(function (r) {
           if (r.budget <= 0) return;
           rows.push({
@@ -663,7 +668,7 @@
           amountInline(r.value, 'rank__amount')
         ]));
         card.appendChild(devRow({
-          label: budget > 0 ? T('overview.devBudget') : T('overview.devLastMonth'),
+          label: st.hasCatBudgets ? T('overview.devBudget') : T('overview.devLastMonth'),
           delta: r.delta, pct: r.pct, scale: scale
         }));
         list.appendChild(card);
@@ -1770,12 +1775,13 @@
 
     const amountStage = U.h('div', { class: 'amount-stage' });
     amountStage.appendChild(U.h('div', { class: 'amount-stage__label', text: T('entry.amount') }));
-    amountStage.appendChild(U.h('div', {
+    els.amountValue = U.h('div', {
       class: 'amount-stage__value' + (U.parseAmount(draft.amount) <= 0 ? ' is-zero' : '')
     }, [
       U.h('span', { class: 'unit', text: moneyUnit() }),
       document.createTextNode(draft.amount === '' ? '0' : draft.amount)
-    ]));
+    ]);
+    amountStage.appendChild(els.amountValue);
     sheet.appendChild(amountStage);
 
     const pad = U.h('div', { class: 'keypad' });
@@ -1786,7 +1792,7 @@
           html: '<svg viewBox="0 0 24 24" fill="none"><path d="M9 6h9.5A1.5 1.5 0 0 1 20 7.5v9a1.5 1.5 0 0 1-1.5 1.5H9L3.8 12.4a.6.6 0 0 1 0-.8L9 6Z" stroke="currentColor" stroke-width="1.7"/><path d="M11.5 10l4 4M15.5 10l-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>',
           onclick: function () {
             draft.amount = draft.amount.slice(0, -1);
-            renderSheet();
+            updateAmountDisplay();
           }
         }));
       } else {
@@ -1804,9 +1810,14 @@
       const chip = U.h('button', {
         class: 'cat-chip' + (draft.categoryId === c.id ? ' is-on' : ''),
         type: 'button',
+        'data-id': c.id,
         onclick: function () {
           draft.categoryId = c.id;
-          renderSheet();
+          // 只切換選取樣式，不重建 sheet（避免捲動跳動吃掉下一次點擊）
+          const chips = els.sheet.querySelectorAll('.cat-chip');
+          for (let i = 0; i < chips.length; i++) {
+            chips[i].classList.toggle('is-on', chips[i].getAttribute('data-id') === draft.categoryId);
+          }
         }
       }, [
         c.iconData
@@ -1857,6 +1868,16 @@
     }));
   }
 
+  /* 只更新金額顯示，不重建 sheet */
+  function updateAmountDisplay() {
+    const node = els.amountValue;
+    if (!node) return;
+    U.clear(node);
+    node.className = 'amount-stage__value' + (U.parseAmount(draft.amount) <= 0 ? ' is-zero' : '');
+    node.appendChild(U.h('span', { class: 'unit', text: moneyUnit() }));
+    node.appendChild(document.createTextNode(draft.amount === '' ? '0' : draft.amount));
+  }
+
   function pushKey(k) {
     if (k === '.') {
       if (draft.amount.indexOf('.') >= 0) return;
@@ -1868,7 +1889,7 @@
         draft.amount = next;
       }
     }
-    renderSheet();
+    updateAmountDisplay();
   }
 
   function saveEntry() {
